@@ -1,0 +1,6 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "vibe-contributer",
+  "version": "0.1.0",
+  "description": "Guides developer-adjacent contributors through the open-source contribution pipeline with non-slop process discipline."
+}

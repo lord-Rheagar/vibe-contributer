@@ -1,0 +1,38 @@
+{
+  "name": "vibe-contributer",
+  "version": "0.1.0",
+  "description": "Guides developer-adjacent contributors through the open-source contribution pipeline with non-slop process discipline.",
+  "author": {
+    "name": "lord-Rheagar"
+  },
+  "homepage": "https://github.com/lord-Rheagar/vibe-contributer",
+  "repository": "https://github.com/lord-Rheagar/vibe-contributer",
+  "license": "MIT",
+  "keywords": [
+    "open-source",
+    "contribution",
+    "ai-coding-agent",
+    "non-coder",
+    "developer-tools",
+    "workflow"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Vibe Contributer",
+    "shortDescription": "Find repos, fix issues, ship PRs — with non-slop process discipline.",
+    "longDescription": "Vibe Contributer encodes the 'AI as junior engineer you manage carefully' methodology into structured skills. It guides developer-adjacent contributors through finding actively maintained repos, identifying workable issues, planning solutions, building with embedded verification gates, critiquing through a multi-stage external-verification pipeline, and shipping PRs.",
+    "developerName": "lord-Rheagar",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/lord-Rheagar/vibe-contributer",
+    "defaultPrompt": [
+      "Find me a repo to contribute to",
+      "Search for good first issues",
+      "Critique my current diff"
+    ]
+  }
+}
