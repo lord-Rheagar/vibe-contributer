@@ -18,11 +18,37 @@ You don't need to read code. You need to know how to specify a problem clearly, 
 
 ## Install
 
-Open Claude Code and paste this:
-
-> Install Vibe Contributer: run `git clone https://github.com/lord-Rheagar/vibe-contributer.git ~/.claude/skills/vibe-contributer`
-
 **Requirements:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Git](https://git-scm.com/), [GitHub CLI](https://cli.github.com/) (`gh auth login`)
+
+### Step 1: Install on your machine
+
+Open Claude Code and paste this. Claude does the rest.
+
+> Install Vibe Contributer: run `git clone https://github.com/lord-Rheagar/vibe-contributer.git ~/.claude/skills/vibe-contributer` then add a "Vibe Contributer" section to CLAUDE.md listing the available skills: search-repo, search-issues, planning-solution, build, critique, push-PR. Note that god-mode is coming in v2. Then ask the user if they also want to add Vibe Contributer to the current project so teammates get it.
+
+### Step 2: Verify GitHub CLI is authenticated
+
+```bash
+gh auth status
+```
+
+If that fails, run `gh auth login` and follow the prompts. The plugin uses `gh` for repo search, issue reading, PR creation, and PR status tracking.
+
+### Step 3: Set up the target repo
+
+Vibe Contributer works against a local clone of the repo you want to contribute to. Make sure you have it cloned and can run its test suite:
+
+```bash
+git clone https://github.com/owner/repo.git
+cd repo
+# install dependencies, run tests, etc. per the repo's CONTRIBUTING.md
+```
+
+The plugin creates a `.vibe-contributer/context.json` file in the target repo's working directory to track state between skills. Add it to your `.gitignore`:
+
+```bash
+echo ".vibe-contributer/" >> .gitignore
+```
 
 ## Try it
 
@@ -36,6 +62,17 @@ Open Claude Code and paste this:
 ```
 
 Each skill reads and writes to a shared context file (`.vibe-contributer/context.json`) so you never re-explain where you are in the pipeline.
+
+**After setup, just talk to Claude Code naturally:**
+
+| You say | What happens |
+|---------|-------------|
+| "Find me a repo to contribute to" | Runs `search-repo`, presents contributor-friendly repos |
+| "Show me good first issues" | Runs `search-issues` on the selected repo |
+| "Plan a fix for issue #42" | Runs `planning-solution`, produces a plan you can read without code |
+| "Build the fix" | Runs `build` with embedded verification (tests, linters, self-review) |
+| "Critique my diff" | Runs `critique` standalone on the current branch |
+| "Push the PR" | Runs `push-PR`, verifies evidence exists, creates the PR |
 
 ## Skills
 
