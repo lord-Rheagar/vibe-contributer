@@ -6,7 +6,7 @@ AI skills that help you contribute to open source, even if you can't read code.
 
 ## What it does
 
-Vibe Contributer turns Claude Code into a structured contribution pipeline. Find a repo, pick an issue, plan a fix, build it, verify it, and ship a PR. All guided by skills that encode engineering process discipline so the output holds up under maintainer review.
+Vibe Contributer turns your AI coding agent into a structured contribution pipeline. Find a repo, pick an issue, plan a fix, build it, verify it, and ship a PR. All guided by skills that encode engineering process discipline so the output holds up under maintainer review.
 
 You don't need to read code. You need to know how to specify a problem clearly, verify an answer, and iterate based on feedback. This plugin handles the rest: feeding the agent real context, breaking asks into verifiable steps, running tests and linters as ground truth, and checking that the diff is focused before anything gets pushed.
 
@@ -18,15 +18,61 @@ You don't need to read code. You need to know how to specify a problem clearly, 
 
 ## Install
 
-**Requirements:** [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Git](https://git-scm.com/), [GitHub CLI](https://cli.github.com/) (`gh auth login`)
+**Requirements:** An AI coding agent (Claude Code, Cursor, Codex, or Hermes Agent), [Git](https://git-scm.com/), [GitHub CLI](https://cli.github.com/) (`gh auth login`)
 
-### Step 1: Install on your machine
+### Claude Code
 
 Open Claude Code and paste this. Claude does the rest.
 
 > Install Vibe Contributer: run `git clone https://github.com/lord-Rheagar/vibe-contributer.git ~/.claude/skills/vibe-contributer` then add a "Vibe Contributer" section to CLAUDE.md listing the available skills: search-repo, search-issues, planning-solution, build, critique, push-PR. Note that god-mode is coming in v2. Then ask the user if they also want to add Vibe Contributer to the current project so teammates get it.
 
-### Step 2: Verify GitHub CLI is authenticated
+### Cursor
+
+Clone the repo and add it to your Cursor skills path:
+
+```bash
+git clone https://github.com/lord-Rheagar/vibe-contributer.git ~/.cursor/skills/vibe-contributer
+```
+
+Or add the `.cursor-plugin` directory as a plugin source in your Cursor settings.
+
+### Codex
+
+```bash
+git clone https://github.com/lord-Rheagar/vibe-contributer.git ~/.codex/skills/vibe-contributer
+```
+
+The `.codex-plugin/plugin.json` manifest registers the `skills/` directory automatically.
+
+### Hermes Agent
+
+Add the plugin from the marketplace:
+
+```bash
+hermes plugin install vibe-contributer
+```
+
+Or clone manually:
+
+```bash
+git clone https://github.com/lord-Rheagar/vibe-contributer.git ~/.hermes/skills/vibe-contributer
+```
+
+The `.agents/plugins/marketplace.json` manifest registers the plugin for Hermes Agent.
+
+### OpenCode
+
+Add to your `opencode.json`:
+
+```json
+{
+  "plugin": ["vibe-contributer@git+https://github.com/lord-Rheagar/vibe-contributer.git"]
+}
+```
+
+Restart OpenCode after changing the config.
+
+### Verify GitHub CLI is authenticated
 
 ```bash
 gh auth status
@@ -34,7 +80,7 @@ gh auth status
 
 If that fails, run `gh auth login` and follow the prompts. The plugin uses `gh` for repo search, issue reading, PR creation, and PR status tracking.
 
-### Step 3: Set up the target repo
+### Set up the target repo
 
 Vibe Contributer works against a local clone of the repo you want to contribute to. Make sure you have it cloned and can run its test suite:
 
@@ -63,7 +109,7 @@ echo ".vibe-contributer/" >> .gitignore
 
 Each skill reads and writes to a shared context file (`.vibe-contributer/context.json`) so you never re-explain where you are in the pipeline.
 
-**After setup, just talk to Claude Code naturally:**
+**After setup, just talk to your agent naturally:**
 
 | You say | What happens |
 |---------|-------------|
@@ -113,6 +159,10 @@ When no test suite or linter exists, the pipeline degrades to diff-scope + self-
 vibe-contributer/
 +-- plugin.json                    Root manifest
 +-- .claude-plugin/plugin.json     Claude Code adapter
++-- .codex-plugin/plugin.json      Codex adapter
++-- .cursor-plugin/                Cursor adapter (plugin.json + marketplace.json)
++-- .agents/plugins/               Hermes Agent adapter (marketplace.json)
++-- .opencode/                     OpenCode adapter (plugin JS + install guide)
 +-- AGENTS.md                      Agent instructions
 +-- CLAUDE.md                      Redirects to AGENTS.md
 +-- LICENSE                        MIT
@@ -126,12 +176,12 @@ vibe-contributer/
     +-- god-mode/                  Stub, v2
 ```
 
-Each skill is a `SKILL.md` file with YAML frontmatter and a `references/` directory for supporting docs loaded on demand. The plugin follows the structural pattern pioneered by [Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin).
+Each skill is a `SKILL.md` file with YAML frontmatter and a `references/` directory for supporting docs loaded on demand. Skills are platform-agnostic. Each platform adapter is a thin metadata wrapper that points to the shared `skills/` directory. The plugin follows the structural pattern pioneered by [Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin).
 
 ## Roadmap
 
-- **v1 (current):** 6 functional skills on Claude Code. Guided flow with embedded verification.
-- **v2:** God-mode (autonomous pipeline with human confirmation gate before push). Cross-platform adapters for Codex, Cursor, and Hermes Agent. Configurable autonomy levels.
+- **v1 (current):** 6 functional skills across Claude Code, Cursor, Codex, Hermes Agent, and OpenCode. Guided flow with embedded verification.
+- **v2:** God-mode (autonomous pipeline with human confirmation gate before push). Configurable autonomy levels.
 
 ## License
 

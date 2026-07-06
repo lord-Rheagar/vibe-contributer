@@ -1,0 +1,18 @@
+{
+  "name": "vibe-contributer",
+  "owner": {
+    "name": "lord-Rheagar",
+    "url": "https://github.com/lord-Rheagar"
+  },
+  "metadata": {
+    "description": "Vibe Contributer plugin marketplace for Cursor",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "vibe-contributer",
+      "source": ".",
+      "description": "AI skills that help you contribute to open source, even if you can't read code."
+    }
+  ]
+}

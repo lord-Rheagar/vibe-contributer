@@ -1,0 +1,21 @@
+{
+  "name": "vibe-contributer",
+  "displayName": "Vibe Contributer",
+  "version": "0.1.0",
+  "description": "AI skills that help you contribute to open source, even if you can't read code.",
+  "author": {
+    "name": "lord-Rheagar"
+  },
+  "homepage": "https://github.com/lord-Rheagar/vibe-contributer",
+  "repository": "https://github.com/lord-Rheagar/vibe-contributer",
+  "license": "MIT",
+  "keywords": [
+    "cursor",
+    "plugin",
+    "ai-powered",
+    "open-source",
+    "contribution",
+    "workflow-automation",
+    "developer-tools"
+  ]
+}
